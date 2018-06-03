@@ -1,0 +1,58 @@
+{% for p in posts %}
+    <article class="article article-type-post">
+        <div class="article-meta">
+            <a class="article-date">
+                <time>{{ p.modify | date:"Y年m月d日" }}</time>
+            </a>
+            <div class="article-category">
+                <a class="article-category-link" href="#" target="_blank">{{ p.category.cname }}</a>
+            </div>
+        </div>
+        <div class="article-inner">
+            <header class="article-header">
+                <h1 itemprop="name">
+                    <a class="article-title" href="#" target="_blank">{{ p.title }}</a>
+                </h1>
+            </header>
+            <div class="article-entry" itemprop="articleBody">
+                <h2>摘要</h2>
+                    <hr>
+                    {{ p.desc }}
+                <p class="article-more-link">
+                    <a href="/post/{{ p.id }}" target="_blank">阅读全文</a>
+                </p>
+            </div>
+            <footer class="article-footer">
+                <a data-url="存放文章的url" class="article-share-link">分享</a>
+                <ul class="article-tag-list">
+                    {% for t in p.tag.all %}
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="h#">{{ t.tname }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </footer>
+        </div>
+    </article>
+{% endfor %}
+
+
+{#导航栏#}
+    <nav id="page-nav">
+            {% if posts.has_previous %}
+                <a class="extend prev" rel="next" href="/page/{{ posts.previous_page_number }}">« Prev</a>
+            {% endif %}
+
+            {% for pr in pagerange  %}
+                {% if pr == num %}
+                    <span class="page-number current">pr</span>
+                {% else %}
+                    <a class="page-number" href="/page/{{ pr }}">{{ pr }}</a>
+                {% endif %}
+
+            {% endfor %}
+
+            {% if posts.has_next %}
+                <a class="extend next" rel="next" href="/page/{{ posts.next_page_number }}">Next »</a>
+            {% endif %}
+    </nav>

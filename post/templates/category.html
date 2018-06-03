@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div class="archives">
+        {% for pc in postbyCa %}
+            <article class="archive-article archive-type-post">
+                <div class="archive-article-inner">
+                    <header class="archive-article-header">
+                        <a href="#" class="archive-article-date"><time>{{ pc.created |date:"Y年m月" }}</time></a>
+                        <h1 itemprop="name"><a class="archive-article-title" target="_blank" href="/post/{{ pc.id }}">{{ pc.title }}</a></h1>
+                    </header>
+                </div>
+
+            </article>
+            {% empty %}
+            <h2><a href={% url "homepage" %}>搜索不到,点击返回主页面重写搜索</a></h2>
+       {% endfor %}
+    </div>
+{% endblock main %}
